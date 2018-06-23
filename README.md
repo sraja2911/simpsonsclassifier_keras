@@ -1,2 +1,2 @@
-# simpsonsclassifier_keras
-Image classifier for Simpsons Characters using Keras, TensorFlow
+# Image Classifier for Simpsons Characters
+An image classifier for Simpsons Characters on a docker container (GPU based and comprises, Keras, Tensorflow, Python 2)
