@@ -1,0 +1,78 @@
+from PIL import Image
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import matplotlib.image as img
+import pandas as pd
+import os, sys
+import numpy as np
+
+from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+from keras.models import Sequential
+from keras.layers import Conv2D, MaxPooling2D
+from keras.layers import Activation, Dropout, Flatten, Dense
+from keras import backend as K
+from keras.models import load_model
+
+testimagedata = '/data/testimagedata'
+model_path = '/data/trainingdata/simpsons_weights2.h5'
+
+model = load_model(model_path)
+model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
+
+# train_generator.class_indices
+chardict = {'grampa': 0,  'apu': 1, 'bart': 2,  'burns': 3,  'chief': 4, 'comic': 5, 'edna': 6, 'homer': 7, 'brockman': 8,
+            'krusty': 9, 'lenny': 10, 'lisa': 11, 'marge': 12, 'mayor': 13, 'milhouse': 14, 'moe': 15, 'ned': 16, 'nelson': 
+             17, 'skinner': 18, 'sideshow': 19}
+
+rows = 5
+cols = 5
+img_width, img_height = 64, 64
+fig, ax = plt.subplots(rows, cols, frameon=False, figsize=(7, 7))
+fig.suptitle('Simpsons Images', fontsize=10, y = 1.03)
+count=0
+for i in range(rows):
+    for j in range(cols):
+        all_files = os.listdir(testimagedata)
+        imgpath = os.path.join(testimagedata, all_files[count])
+        img = Image.open(imgpath)
+        img = img.resize((img_width, img_height), Image.ANTIALIAS)
+        ax[i][j].imshow(img)
+        img = img_to_array(img)
+        img = img/255.0
+        img = img.reshape((1,) + img.shape)
+        pred = model.predict(img, batch_size= 1)
+        pred = pd.DataFrame(np.transpose(np.round(pred, decimals = 3)))
+        #pred = pred.nlargest(n = 3, columns = 0)
+        pred = pred.nlargest(n = 5, columns = 0)
+        #file = open('simpsons_predict3.txt', "a+")
+        pred['char'] = [list(chardict.keys())[list(chardict.values()).index(x)] for x in pred.index]
+        charstr = ''
+        for k in range(0,5):
+            if k < 2:
+                charstr = charstr+str(pred.iloc[k,1])+': '+str(pred.iloc[k,0])+'\n'
+                #file.write(charstr+str(pred.iloc[k,1])+': '+str(pred.iloc[k,0])+'\n'))
+            else:
+                charstr = charstr+str(pred.iloc[k,1])+': '+str(pred.iloc[k,0])
+                #file.write(charstr+str(pred.iloc[k,1])+': '+str(pred.iloc[k,0])+'\n'))
+                
+        with open('simpsons_prediction_6conv.json', 'a+') as f:
+                    #f.write(pred.to_json(orient='records'))
+                    f.write(pred[0].to_json(orient='values'))
+                    f.write(pred['char'].to_json(orient='values'))
+                    f.write('\n')
+        #file.write(charstr)
+        ec = (0, .8, .1)
+        fc = (0, .9, .2)
+        count = count + 1
+        ax[i][j].text(0, -10, charstr, size=10, rotation=0,
+                ha="left", va="top", 
+                bbox=dict(boxstyle="round", ec=ec, fc=fc, alpha = 0.7))
+                #file.write(charstr)
+        #file.write('\n')        
+        #file.write (charstr+'\n')
+        
+plt.setp(ax, xticks=[], yticks=[])
+plt.tight_layout(rect=[0, 0.14, 1, 0.95])
+#file.close()
+plt.savefig('simpsons_predict_0720_3.png')
