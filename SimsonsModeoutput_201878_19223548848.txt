@@ -1,0 +1,43 @@
+Confusion Matrix
+[[5 3 3 3 4 3 5 3 2 3 1 1 1 3 4 1 2 1]
+ [1 0 6 3 1 4 3 2 3 4 3 2 4 4 2 2 2 4]
+ [4 4 1 1 1 2 4 3 2 3 2 5 2 1 2 4 4 5]
+ [1 3 5 5 6 3 1 3 2 2 2 2 4 3 1 1 3 1]
+ [1 6 0 2 6 2 3 1 2 2 2 5 4 3 1 4 2 4]
+ [2 0 5 5 1 6 2 0 4 2 3 1 3 4 1 2 6 2]
+ [3 4 2 5 3 2 1 2 2 2 5 4 1 2 2 5 4 1]
+ [3 4 3 2 3 1 2 9 1 3 3 1 2 2 4 2 2 3]
+ [1 2 3 5 2 3 4 6 3 2 4 1 3 4 3 2 2 0]
+ [2 5 1 0 2 4 6 2 1 3 2 3 2 3 1 6 3 4]
+ [3 3 2 1 2 2 1 5 2 5 3 3 1 3 7 2 3 2]
+ [5 0 4 1 1 5 4 3 6 1 2 2 1 4 4 1 2 4]
+ [3 3 2 2 4 4 3 3 2 2 2 5 3 1 4 3 0 3]
+ [3 0 3 2 4 1 2 2 5 2 1 5 7 1 3 2 2 5]
+ [2 3 2 2 4 2 2 3 5 3 4 3 1 2 1 2 3 5]
+ [3 4 2 4 1 1 0 1 1 5 4 4 6 4 4 2 3 1]
+ [1 3 6 0 4 2 4 7 1 2 1 1 4 1 3 4 6 0]
+ [2 3 2 6 2 2 2 4 3 4 3 2 1 4 2 1 2 2]]
+Classification Report
+                          precision    recall  f1-score   support
+
+charles_montgomery_burns       0.11      0.10      0.11        48
+            ned_flanders       0.00      0.00      0.00        50
+           homer_simpson       0.02      0.02      0.02        50
+  abraham_grampa_simpson       0.10      0.10      0.10        48
+     milhouse_van_houten       0.12      0.12      0.12        50
+            chief_wiggum       0.12      0.12      0.12        49
+          edna_krabappel       0.02      0.02      0.02        50
+  apu_nahasapeemapetilon       0.15      0.18      0.17        50
+           marge_simpson       0.06      0.06      0.06        50
+             moe_szyslak       0.06      0.06      0.06        50
+            nelson_muntz       0.06      0.06      0.06        50
+        krusty_the_clown       0.04      0.04      0.04        50
+           kent_brockman       0.06      0.06      0.06        49
+            bart_simpson       0.02      0.02      0.02        50
+            sideshow_bob       0.02      0.02      0.02        49
+          comic_book_guy       0.04      0.04      0.04        50
+            lisa_simpson       0.12      0.12      0.12        50
+       principal_skinner       0.04      0.04      0.04        47
+
+             avg / total       0.07      0.07      0.07       890
+
